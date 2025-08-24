@@ -1,5 +1,6 @@
-package com.DevSuperior.dslist;
+package com.devsuperior.dslist.entities;
 
+import java.util.Objects;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,30 +15,35 @@ import jakarta.persistence.Table;
 //FIM da ORM
 public class Game {
     @Id //Chave primaria da tabela Game
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //Auto incrmentar
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //Auto incrementar
     private Long id;
     private String title;
     
-    @Column(name = "game_year")
+
+    @Column(name = "game_year") // para trocar o nome no banco de dados de year para gam_year
     private Integer year;
     private String genre;
-    private String platfoms;
+    private String platforms;
     private Double score;
     private String imgUrl;
+
+    @Column(columnDefinition = "TEXT")// tranforma String para o tipo TEXT no banco de dados, para ter mais caracter
     private String shorDescription;
+
+    @Column(columnDefinition = "TEXT")
     private String longDescription;
 
     public Game(){
 
     }
 
-    public Game(Long id, String title, Integer year, String genre, String platfoms, Double score, String imgUrl,
+    public Game(Long id, String title,  Integer year, String genre, String platforms, Double score, String imgUrl,
             String shorDescription, String longDescription) {
         this.id = id;
         this.title = title;
         this.year = year;
         this.genre = genre;
-        this.platfoms = platfoms;
+        this.platforms = platforms;
         this.score = score;
         this.imgUrl = imgUrl;
         this.shorDescription = shorDescription;
@@ -76,12 +82,12 @@ public class Game {
         this.genre = genre;
     }
 
-    public String getPlatfoms() {
-        return platfoms;
+    public String getPlatforms() {
+        return platforms;
     }
 
-    public void setPlatfoms(String platfoms) {
-        this.platfoms = platfoms;
+    public void setPlatforms(String platforms) {
+        this.platforms = platforms;
     }
 
     public Double getScore() {
@@ -91,7 +97,7 @@ public class Game {
     public void setScore(Double score) {
         this.score = score;
     }
-
+    
     public String getImgUrl() {
         return imgUrl;
     }
@@ -124,23 +130,18 @@ public class Game {
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Game other = (Game) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
-    }
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Game other = (Game) obj;
+		return Objects.equals(id, other.id);
+	}
 // Fim do metodo
 
     
